@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::where('id','<>',Auth::id())->get();
-        return view('home',compact('users'));
+        $friends = User::where('id','<>',Auth::id())->get();
+        return view('home',compact('friends'));
     }
 }
