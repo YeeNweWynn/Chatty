@@ -17,7 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/chat/{id}', 'ChatController@show')->middleware('auth')->name('chat.show');
-Route::post('/chat/getChat/{id}', 'ChatController@getChat')->middleware('auth');
-Route::post('/chat/postChat', 'ChatController@postChat')->middleware('auth');
+Route::group(['middleware'=>'auth'],function(){
+	Route::get('/home', 'HomeController@index');
+	Route::get('/chat/{id}', 'ChatController@show');
+	Route::post('/chat/getChat/{id}', 'ChatController@getChat');
+	Route::post('/chat/postChat', 'ChatController@postChat');
+});

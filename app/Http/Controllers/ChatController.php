@@ -16,12 +16,13 @@ class ChatController extends Controller
 
     public function getChat($id)
     {
-        $messages = Chat::where(function ($query) use ($id){
+        $chats = Chat::where(function ($query) use ($id){
             $query->where('user_id',Auth::id())->where('friend_id',$id);
         })->orWhere(function ($query) use ($id){
             $query->where('friend_id',Auth::id())->where('user_id',$id);
         })->get();
-        return $messages;
+
+        return $chats;
     }
 
     public function postChat(Request $request)
@@ -31,5 +32,6 @@ class ChatController extends Controller
         $chat->friend_id = $request->friend_id;
         $chat->message = $request->message;
         $chat->save();
+        return $request->message;
     }
 }

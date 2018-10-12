@@ -1,7 +1,6 @@
 <style>
     .me{
         text-align: right;
-
     }
     .other{
         text-align: left;
@@ -9,11 +8,11 @@
 </style>
 <template>
     <div class="container">
-        <div v-for="chat in chats" v-if="chats.length>0" class="card-body">
+        <div v-for="chat in chats">
             <div v-if="chat.user_id == userid" >
                 <p class="me">{{chat.message}}</p>
             </div>
-            <div v-else class="other">
+            <div v-else>
                 <p class="other">{{chat.message}}</p>
             </div>
         </div>
@@ -41,8 +40,7 @@
         }, 
         methods:{
             getChat(){
-                const friendId=$('meta[name="friendId"]').attr('content');
-                axios.post('/chat/getChat/'+friendId).
+                axios.post('/chat/getChat/'+this.friendid).
                 then(response=>{
                     this.chats=response.data;
                 });                
