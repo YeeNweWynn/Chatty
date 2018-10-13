@@ -21,12 +21,13 @@
 <template>
     <div class="container">
         <div v-for="chat in chats">
-            <div v-if="chat.user_id == userid" class="block">
+            {{chat}}
+            <!-- <div v-if="chat.user_id == userid" class="block">
                 <p class="me">{{chat.message}}</p>
             </div>
             <div v-else>
                 <p class="other">{{chat.message}}</p>
-            </div>
+            </div> -->
         </div>
         <div class="card-footer row">
             <input class="form-control col-sm-10" v-model="text" @keyup.enter="sendText">
@@ -49,13 +50,17 @@
         },
         created:function(){
             this.getChat();
+            Echo.channel('public').listen('BroadcastMessage', ({e}) => {
+                this.chats.push(e);
+            });
+
         }, 
         methods:{
             getChat(){
                 axios.post('/chat/getChat/'+this.friendid).
                 then(response=>{
                     this.chats=response.data;
-                }); 
+                });
             },
             sendText(){
                 if(this.message !=''){

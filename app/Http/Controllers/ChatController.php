@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Chat;
 use App\User;
 use Illuminate\Http\Request;
+use App\Events\BroadcastMessage;
 use Auth;
+
 class ChatController extends Controller
 {
     public function show($id)
@@ -32,6 +34,7 @@ class ChatController extends Controller
         $chat->friend_id = $request->friend_id;
         $chat->message = $request->message;
         $chat->save();
+        event(new BroadcastMessage($request->message));
         return $request->message;
     }
 }

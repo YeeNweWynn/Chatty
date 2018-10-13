@@ -48712,6 +48712,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -48727,25 +48728,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     created: function created() {
+        var _this = this;
+
         this.getChat();
+        Echo.channel('public').listen('BroadcastMessage', function (_ref) {
+            var e = _ref.e;
+
+            _this.chats.push(e);
+        });
     },
     methods: {
         getChat: function getChat() {
-            var _this = this;
+            var _this2 = this;
 
             axios.post('/chat/getChat/' + this.friendid).then(function (response) {
-                _this.chats = response.data;
+                _this2.chats = response.data;
             });
         },
         sendText: function sendText() {
-            var _this2 = this;
+            var _this3 = this;
 
             if (this.message != '') {
-                axios.post('/chat/postChat', { friend_id: this.friendid, message: this.text }).then(function (_ref) {
-                    var data = _ref.data;
+                axios.post('/chat/postChat', { friend_id: this.friendid, message: this.text }).then(function (_ref2) {
+                    var data = _ref2.data;
 
-                    _this2.chats.push(data);
-                    _this2.text = '';
+                    _this3.chats.push(data);
+                    _this3.text = '';
                 });
             }
         }
@@ -48765,17 +48773,7 @@ var render = function() {
     { staticClass: "container" },
     [
       _vm._l(_vm.chats, function(chat) {
-        return _c("div", [
-          chat.user_id == _vm.userid
-            ? _c("div", { staticClass: "block" }, [
-                _c("p", { staticClass: "me" }, [_vm._v(_vm._s(chat.message))])
-              ])
-            : _c("div", [
-                _c("p", { staticClass: "other" }, [
-                  _vm._v(_vm._s(chat.message))
-                ])
-              ])
-        ])
+        return _c("div", [_vm._v("\n        " + _vm._s(chat) + "\n        ")])
       }),
       _vm._v(" "),
       _c("div", { staticClass: "card-footer row" }, [
