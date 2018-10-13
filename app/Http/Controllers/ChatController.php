@@ -28,7 +28,7 @@ class ChatController extends Controller
     public function postChat(Request $request)
     {
         $chat = new Chat();
-        $chat->user_id = $request->user_id;
+        $chat->user_id = Auth::id();
         $chat->friend_id = $request->friend_id;
         $chat->message = $request->message;
         $chat->save();

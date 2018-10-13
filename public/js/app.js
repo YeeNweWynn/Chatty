@@ -48212,7 +48212,7 @@ exports = module.exports = __webpack_require__(43)(false);
 
 
 // module
-exports.push([module.i, "\n.me{\n    text-align: right;\n}\n.other{\n    text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.me,.other{\n    display:inline-block;\n    background:#e6e6e6;\n    color:#000;\n    border-radius:20px;\n    -webkit-box-shadow:1px 1px 2px rgba(0,0,0,.3);\n            box-shadow:1px 1px 2px rgba(0,0,0,.3);\n    padding:3px 15px;\n}\n.me{\n    float:right;\n}\n.other{\n    float: left;\n}\n.block{\n    width:100%;\n    float:left;\n}\n", ""]);
 
 // exports
 
@@ -48700,6 +48700,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -48729,7 +48741,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             if (this.message != '') {
-                axios.post('/chat/postChat', { user_id: this.userid, friend_id: this.friendid, message: this.text }).then(function (_ref) {
+                axios.post('/chat/postChat', { friend_id: this.friendid, message: this.text }).then(function (_ref) {
                     var data = _ref.data;
 
                     _this2.chats.push(data);
@@ -48755,7 +48767,7 @@ var render = function() {
       _vm._l(_vm.chats, function(chat) {
         return _c("div", [
           chat.user_id == _vm.userid
-            ? _c("div", [
+            ? _c("div", { staticClass: "block" }, [
                 _c("p", { staticClass: "me" }, [_vm._v(_vm._s(chat.message))])
               ])
             : _c("div", [
@@ -48776,7 +48788,7 @@ var render = function() {
               expression: "text"
             }
           ],
-          staticClass: "form-control col-md-6",
+          staticClass: "form-control col-sm-10",
           domProps: { value: _vm.text },
           on: {
             keyup: function($event) {
@@ -48799,7 +48811,11 @@ var render = function() {
         _vm._v(" "),
         _c(
           "button",
-          { staticClass: "form-control col-md-2", on: { click: _vm.sendText } },
+          {
+            staticClass: "form-control col-sm-2",
+            staticStyle: { background: "#97ddff" },
+            on: { click: _vm.sendText }
+          },
           [_vm._v("Send")]
         )
       ])
