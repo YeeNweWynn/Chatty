@@ -10,7 +10,7 @@
                     @foreach($friends as $friend)
                         <div class="card-block">
                             <div class="col-md-6 ">   
-                                <button class="form-control"><a href="{{url('chat/'.$friend->id)}}">{{$friend->name}}</a></button><br>
+                                <a href="{{url('chat/'.$friend->id)}}">{{$friend->name}}</a><br>
                             </div>
                         </div>
                     @endforeach

@@ -46,10 +46,12 @@
                 });                
             },
             sendText(){
-                axios.post('/chat/postChat', {user_id:this.userid, friend_id:this.friendid, message:this.text}).then(({data}) => {
-                    this.chats.push(data);
-                    this.text = '';
-                });
+                if(this.message !=''){
+                    axios.post('/chat/postChat', {user_id:this.userid, friend_id:this.friendid, message:this.text}).then(({data}) => {
+                        this.chats.push(data);
+                        this.text = '';
+                    });
+                }
             }
         }
     }
