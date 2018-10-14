@@ -20,6 +20,6 @@ Auth::routes();
 Route::group(['middleware'=>'auth'],function(){
 	Route::get('/home', 'HomeController@index');
 	Route::get('/chat/{id}', 'ChatController@show');
-	Route::post('/chat/getChat/{id}', 'ChatController@getChat');
+	Route::get('/chat/getChat/{id}', 'ChatController@getChat');
 	Route::post('/chat/postChat', 'ChatController@postChat');
 });

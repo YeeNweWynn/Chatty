@@ -28,12 +28,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function friendOfMe()
-    {
-        return $this->belongsToMany('App\User','friends','user_id','friend_id');
-    }
     public function friends()
     {
-        return $this->friendOfMe;
+        return $this->belongsToMany('App\User', 'friends', 'user_id', 'friend_id');
     }
 }

@@ -20,9 +20,11 @@ class BroadcastMessage implements ShouldBroadcast
      * @return void
      */
     public $chat;
-    public function __construct($chat)
+
+    public function __construct(Chat $chat)
     {
-        $this->chat=$chat;
+        $this->chat = $chat;
+        $this->dontBroadcastToCurrentUser();
     }
 
     /**
@@ -32,7 +34,6 @@ class BroadcastMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        //return new PrivateChannel('channel-name');
-        return new Channel('public');
+        return new Channel('chat-' . $this->chat->friend_id . '-' . $this->chat->user_id);
     }
 }
